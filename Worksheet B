@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staffing Estimation Worksheet</title>
+    <script>
+        function calculateTurnoverAndRetention() {
+            var years = [1, 2, 3, 4, 5];
+            var totalEmployees = [];
+            var newHiresFailed = [];
+            var employeesLeft = [];
+            var turnoverRates = [];
+            var retentionRates = [];
+
+            for (var i = 0; i < 5; i++) {
+                totalEmployees[i] = parseInt(document.getElementById('A' + years[i]).value) || 0;
+                newHiresFailed[i] = parseInt(document.getElementById('B' + years[i]).value) || 0;
+                employeesLeft[i] = parseInt(document.getElementById('C' + years[i]).value) || 0;
+
+                var turnover = (newHiresFailed[i] + employeesLeft[i]) / totalEmployees[i];
+                turnoverRates[i] = turnover;
+                retentionRates[i] = (1 - turnover) * 100;
+
+                document.getElementById('D' + years[i]).value = turnover.toFixed(4) * 100 + '%';
+                document.getElementById('E' + years[i]).value = retentionRates[i].toFixed(2) + '%';
+            }
+
+            var totalTurnover = turnoverRates.reduce((a, b) => a + b, 0);
+            var averageTurnover = totalTurnover / 5;
+            var totalRetention = retentionRates.reduce((a, b) => a + b, 0);
+            var averageRetention = totalRetention / 5;
+
+            document.getElementById('averageTurnover').value = (averageTurnover * 100).toFixed(2) + '%';
+            document.getElementById('averageRetention').value = averageRetention.toFixed(2) + '%';
+        }
+    </script>
+</head>
+<body>
+    <h1>Staffing Estimation Worksheet</h1>
+    <h2>WORKSHEET B: CALCULATING AVERAGE TURNOVER RATE</h2>
+    <table border="1">
+        <tr>
+            <th>Year</th>
+            <th>Total number of employees (A)</th>
+            <th>New hires failed probation (B)</th>
+            <th>Employees left (C)</th>
+            <th>Turnover Rate (D)</th>
+            <th>Retention Rate (E)</th>
+        </tr>
+        <tr>
+            <td><input type="text" id="year1" placeholder="Enter Year" oninput="calculateTurnoverAndRetention()"></td>
+            <td><input type="number" id="A1" oninput="calculateTurnoverAndRetention()"></td>
+            <td><input type="number" id="B1" oninput="calculateTurnoverAndRetention()"></td>
+            <td><input type="number" id="C1" oninput="calculateTurnoverAndRetention()"></td>
+            <td><input type="text" id="D1" disabled></td>
+            <td><input type="text" id="E1" disabled></td>
+        </tr>
+        <tr>
+            <td><input type="text" id="year2" placeholder="Enter Year" oninput="calculateTurnoverAndRetention()"></td>
+            <td><input type="number" id="A2" oninput="calculateTurnoverAndRetention()"></td>
+            <td><input type="number" id="B2" oninput="calculateTurnoverAndRetention()"></td>
+            <td><input type="number" id="C2" oninput="calculateTurnoverAndRetention()"></td>
+            <td><input type="text" id="D2" disabled></td>
+            <td><input type="text" id="E2" disabled></td>
+        </tr>
+        <tr>
+            <td><input type="text" id="year3" placeholder="Enter Year" oninput="calculateTurnoverAndRetention()"></td>
+            <td><input type="number" id="A3" oninput="calculateTurnoverAndRetention()"></td>
+            <td><input type="number" id="B3" oninput="calculateTurnoverAndRetention()"></td>
+            <td><input type="number" id="C3" oninput="calculateTurnoverAndRetention()"></td>
+            <td><input type="text" id="D3" disabled></td>
+            <td><input type="text" id="E3" disabled></td>
+        </tr>
+        <tr>
+            <td><input type="text" id="year4" placeholder="Enter Year" oninput="calculateTurnoverAndRetention()"></td>
+            <td><input type="number" id="A4" oninput="calculateTurnoverAndRetention()"></td>
+            <td><input type="number" id="B4" oninput="calculateTurnoverAndRetention()"></td>
+            <td><input type="number" id="C4" oninput="calculateTurnoverAndRetention()"></td>
+            <td><input type="text" id="D4" disabled></td>
+            <td><input type="text" id="E4" disabled></td>
+        </tr>
+        <tr>
+            <td><input type="text" id="year5" placeholder="Enter Year" oninput="calculateTurnoverAndRetention()"></td>
+            <td><input type="number" id="A5" oninput="calculateTurnoverAndRetention()"></td>
+            <td><input type="number" id="B5" oninput="calculateTurnoverAndRetention()"></td>
+            <td><input type="number" id="C5" oninput="calculateTurnoverAndRetention()"></td>
+            <td><input type="text" id="D5" disabled></td>
+            <td><input type="text" id="E5" disabled></td>
+        </tr>
+    </table>
+    <h3>Average Turnover Rate:</h3>
+    <input type="text" id="averageTurnover" disabled>
+    <h3>Average Retention Rate:</h3>
+    <input type="text" id="averageRetention" disabled>
+</body>
+</html>
