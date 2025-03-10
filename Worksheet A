@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staffing Estimation Worksheets</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+        }
+        h1, h2 {
+            color: #2e6da4;
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 5px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .worksheet {
+            margin-top: 40px;
+        }
+        .result {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>APCO Project RETAINS: Responsive Efforts to Assure Integral Needs in Staffing</h1>
+    <p><strong>University of Denver Research Institute</strong> - August, 2005</p>
+    <h2>Staffing Estimation Worksheets</h2>
+    <p>A six-step process for estimating the number of employees needed:</p>
+    <ol>
+        <li>Identify the type of position you wish to analyze;</li>
+        <li>Determine employee availability (Worksheet A, NAWH);</li>
+        <li>Determine your turnover rate (Worksheet B);</li>
+        <li>Select the appropriate formula and analyze all positions (Worksheets C, D, E);</li>
+        <li>Compare the number of staff you have with the number you need (Worksheet F);</li>
+        <li>Do a reality check using quality indicators.</li>
+    </ol>
+
+    <div class="worksheet">
+        <h2>WORKSHEET A: DETERMINING EMPLOYEE AVAILABILITY</h2>
+        <p>Determine Net Available Work Hours (NAWH)</p>
+        <table>
+            <tr>
+                <td>Position:</td>
+                <td><input type="text" id="position" placeholder="Enter Position"></td>
+            </tr>
+            <tr>
+                <td>A. Total hours for one full-time employee</td>
+                <td><input type="number" id="total_hours" placeholder="Enter total hours"></td>
+            </tr>
+            <tr>
+                <td>B. Average vacation and holiday leave (total hours)</td>
+                <td><input type="number" id="vacation_leave" placeholder="Enter vacation and holiday leave hours"></td>
+            </tr>
+            <tr>
+                <td>C. Average sick leave (total hours)</td>
+                <td><input type="number" id="sick_leave" placeholder="Enter sick leave hours"></td>
+            </tr>
+            <tr>
+                <td>D. Average personal leave (total hours)</td>
+                <td><input type="number" id="personal_leave" placeholder="Enter personal leave hours"></td>
+            </tr>
+            <tr>
+                <td>E. Average training leave (total hours)</td>
+                <td><input type="number" id="training_leave" placeholder="Enter training leave hours"></td>
+            </tr>
+            <tr>
+                <td>F. Average military, FMLA leave, etc. (total hours)</td>
+                <td><input type="number" id="military_leave" placeholder="Enter military leave hours"></td>
+            </tr>
+            <tr>
+                <td>G. Average lunch and break (total hours)</td>
+                <td><input type="number" id="lunch_break" placeholder="Enter lunch and break hours"></td>
+            </tr>
+            <tr>
+                <td>H. Average other (meetings, light duty, special assignments, etc.)</td>
+                <td><input type="number" id="other_leave" placeholder="Enter other leave hours"></td>
+            </tr>
+            <tr>
+                <td>I. Total unavailable time = Total B through H</td>
+                <td><input type="number" id="total_unavailable" disabled placeholder="Calculated automatically"></td>
+            </tr>
+            <tr>
+                <td>J. Net Available Work Hours (NAWH) = A - I</td>
+                <td><input type="number" id="nawh" disabled placeholder="Calculated automatically"></td>
+            </tr>
+        </table>
+        <div class="result">
+            <p><strong>Net Available Work Hours per employee (NAWH):</strong> <span id="nawh_result">0</span></p>
+        </div>
+        <button onclick="calculateNAWH()">Calculate NAWH</button>
+    </div>
+
+    <script>
+        function calculateNAWH() {
+            const totalHours = parseFloat(document.getElementById('total_hours').value) || 0;
+            const vacationLeave = parseFloat(document.getElementById('vacation_leave').value) || 0;
+            const sickLeave = parseFloat(document.getElementById('sick_leave').value) || 0;
+            const personalLeave = parseFloat(document.getElementById('personal_leave').value) || 0;
+            const trainingLeave = parseFloat(document.getElementById('training_leave').value) || 0;
+            const militaryLeave = parseFloat(document.getElementById('military_leave').value) || 0;
+            const lunchBreak = parseFloat(document.getElementById('lunch_break').value) || 0;
+            const otherLeave = parseFloat(document.getElementById('other_leave').value) || 0;
+
+            const totalUnavailable = vacationLeave + sickLeave + personalLeave + trainingLeave + militaryLeave + lunchBreak + otherLeave;
+
+            const nawH = totalHours - totalUnavailable;
+
+            document.getElementById('total_unavailable').value = totalUnavailable;
+            document.getElementById('nawh').value = nawH;
+            document.getElementById('nawh_result').textContent = nawH;
+        }
+    </script>
+
+</body>
+</html>
